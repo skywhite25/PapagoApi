@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.gson.Gson
 import com.th.papago.dto.PapagoDto
-import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
@@ -47,8 +46,13 @@ class MainActivity : AppCompatActivity() {
                     var PapagoDTO = Gson().fromJson<PapagoDto>(str, PapagoDto::class.java)
                     println(PapagoDTO.message?.result?.translateText)
                 }.start()
+
                 /*textEN.text = translateText*/
             }
         })
+
+        fun translate() {
+
+        }
     }
 }
