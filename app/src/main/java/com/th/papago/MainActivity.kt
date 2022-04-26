@@ -2,9 +2,9 @@ package com.th.papago
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.google.gson.Gson
 import com.th.papago.dto.PapagoDto
+import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
         val json = JSONObject()
         json.put("source", "ko")
         json.put("target", "en")
-        json.put("text", "인생이 정말 어렵다. 집에 가고 싶구나")
+        json.put("text", "안녕하세요, 오늘 날씨가 참 좋아요.")
 
         val body = RequestBody.create(JSON, json.toString())
         val request = Request.Builder()
-            .header("X-Naver-Client-Id", "내아이디")
-            .addHeader("X-Naver-Client-Secret", "내키")
+            .header("X-Naver-Client-Id", "5cswsbP4JSRIBvGslgTa")
+            .addHeader("X-Naver-Client-Secret", "T7LmrfLoRf")
             .url(url)
             .post(body)
             .build()
@@ -40,12 +40,14 @@ class MainActivity : AppCompatActivity() {
             }
             // main thread말고 별도의 thread에서 실행해야 함.
             override fun onResponse(call: Call, response: Response) {
+                /*var translateText = ""*/
                 Thread{
                     var str = response.body?.string()
                     println(str)
                     var PapagoDTO = Gson().fromJson<PapagoDto>(str, PapagoDto::class.java)
                     println(PapagoDTO.message?.result?.translateText)
                 }.start()
+                /*textEN.text = translateText*/
             }
         })
     }
